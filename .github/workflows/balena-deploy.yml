@@ -1,0 +1,21 @@
+name: Deploy to BCR
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  balena-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: balena CLI Action
+        uses: balena-community/community-cli-action@1.0.0
+        with:
+          balena_token: ${{secrets.BALENA_TOKEN}}
+          balena_cli_commands: >
+            push maggie0002/balena-plex-seedbox;
+          balena_cli_version: 13.7.1
