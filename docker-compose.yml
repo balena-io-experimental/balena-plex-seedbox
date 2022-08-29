@@ -1,0 +1,130 @@
+version: "2"
+
+services:
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - bazarr_config:/config
+      - movies:/movies
+      - tv:/tv
+    ports:
+      - 6767:6767
+    restart: always
+
+  caddy:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.caddy
+    restart: always
+    network_mode: host
+    volumes:
+      - caddy_config:/config
+      - caddy_data:/data
+
+  hostname:
+    image: ghcr.io/maggie0002/balena-tiny-hostname
+    restart: no
+    labels:
+      io.balena.features.supervisor-api: 1
+    environment:
+      SET_HOSTNAME: plex
+
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    network_mode: host
+    # devices for when using hardware acceleration:
+    #   - /dev/dvb
+    #   - /dev/dri
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - VERSION=docker
+      - PLEX_CLAIM= #optional
+    volumes:
+      - plex_config:/config
+      - tv:/tv
+      - movies:/movies
+    restart: always
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:develop
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - prowlarr_config:/config
+    ports:
+      - 9696:9696
+    restart: always
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - radarr_config:/config
+      - movies:/movies
+      - transmission_downloads:/downloads
+    ports:
+      - 7878:7878
+    restart: always
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - sonarr_config:/config
+      - tv:/tv
+      - transmission_downloads:/downloads
+    ports:
+      - 8989:8989
+    restart: always
+
+  transmission-openvpn:
+    image: haugene/transmission-openvpn:latest
+    container_name: transmission-openvpn
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - transmission_config:/data
+    environment:
+      - LOCAL_NETWORK=192.168.0.0/16,172.0.0.0/8
+      - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
+      - TRANSMISSION_BLOCKLIST_ENABLED=true
+      - TRANSMISSION_BLOCKLIST_URL=http://john.bitsurge.net/public/biglist.p2p.gz
+      - WEBPROXY_ENABLED=true
+      - WEBPROXY_PORT=8888
+      - SELFHEAL=true
+      - HEALTH_CHECK_HOST=google.com
+      - ENABLE_UFW=true
+    ports:
+      - 9091:9091
+
+volumes:
+  bazarr:
+  bazarr_config:
+  caddy_config:
+  caddy_data:
+  movies:
+  plex_config:
+  prowlarr_config:
+  radarr_config:
+  sonarr_config:
+  transmission_config:
+  transmission_downloads:
+  tv:

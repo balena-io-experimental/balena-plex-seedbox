@@ -1,0 +1,20 @@
+:80 {
+        reverse_proxy /sonarr* {
+                to :8989
+        }
+        reverse_proxy /radarr* {
+                to :7878
+        }
+        reverse_proxy /bazarr* {
+                to :6767
+        }
+        reverse_proxy /* {
+                to :32400
+        }
+        reverse_proxy /prowlarr* {
+                to :9696
+        }
+        reverse_proxy /transmission* {
+                to :9091
+        }
+}

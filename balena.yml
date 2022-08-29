@@ -1,0 +1,37 @@
+name: plex-seedbox
+joinable: false
+type: sw.application
+description: >-
+  Quickest and easiest way to get Plex and friends (Radarr, Sonarr, Prowlarr, Bazarr and Transmission with a secure VPN) running on a Raspberry Pi 4, NUC and many more.
+post-provisioning: >-
+  ## Introduction
+
+  [Plex](https://www.plex.tv) is a free media organiser and streamer for your movies and TV shows that allows you to easily access your content on your TV, phone or computer.
+
+  Plex is often accompanied by a collection of managers for Usenet and BitTorrent users that monitors and manages movies, TV and subtitles. Read more about them and their usage on their websites:
+
+  [Radarr](https://radarr.video/#home)
+
+  [Sonarr](https://sonarr.tv)
+
+  [Prowlarr](https://prowlarr.com)
+
+  [Bazarr](https://www.bazarr.media)
+
+  [Transmission VPN](https://github.com/haugene/docker-transmission-openvpn)
+
+  ## Getting started
+
+  Check out the docs on the GitHub repo to get started.
+
+assets:
+  repository:
+    type: blob.asset
+    data:
+      url: "https://github.com/maggie0002/balena-plex-seedbox"
+  logo:
+    type: blob.asset
+    data:
+      url: "https://github.com/maggie0002/balena-plex-seedbox/raw/main/logo.png"
+data:
+  defaultDeviceType: raspberrypi4-64
