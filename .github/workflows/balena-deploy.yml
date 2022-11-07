@@ -12,6 +12,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Update balena.yml
+        uses: balena-io-experimental/balena.yml-action@main
+        with:
+          sync_readme: true
+          sync_tag: true
+
       - name: balena CLI Action
         uses: balena-community/community-cli-action@1.0.0
         with:
