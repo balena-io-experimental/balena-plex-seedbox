@@ -2,6 +2,8 @@
 
 Quickest and easiest way to get [Plex](https://www.plex.tv) and friends (Radarr, Sonarr, Prowlarr, Bazarr and Transmission with a secure VPN) running on a Raspberry Pi 4, NUC and many more.
 
+**Need more storage space for your Raspberry Pi? You can flash this Balena image to a USB drive, such as an SSD and run the whole system from there. You will get quicker and more reliable operation when not using an SD card, and can gain TBs of space for your content. Check out the Getting Started section below.**
+
 | Service                                                                    | URL                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [Plex](https://plex.tv)                                                    | Stream Movies and TV shows, from your library and theirs.                                                                                                                                            |
@@ -35,6 +37,8 @@ Quickest and easiest way to get [Plex](https://www.plex.tv) and friends (Radarr,
 
 7. Hit the `Flash` button, put your SD card in to your device and wait for it to load!
 
+8. Need more space? You can flash the OS image to a USB drive, such as an SSD and run the OS from there. You will get quicker and more reliable operation when not using an SD card, and can gain TBs of space for your content. If you have a newer Raspberry Pi 4 then it will already boot from your USB, simply remove the SD card and start the device. If you have an older Raspberry Pi, there are some [simple steps you can follow](#boot-from-usb) to update the device to allow booting from USB. 
+
 ## Usage
 
 Give your device some time to setup all the required components. When it is ready the services will be available on your local network through the following URLs:
@@ -59,6 +63,32 @@ There is a Caddy service running to allow you to access all of these services wi
 | Transmission-VPN | `/transmission` |
 
 You are now ready to go! Access each of the control panels and start configuring your settings referring to the documentation of each service.
+
+## Boot from USB
+
+The latest versions of Raspberry Pi OS (as of April 29 2021 or later) have many of the necessary changes for USB built-in and setup by default. If you have bought your Pi 4 recently, remove the SD card, plug in your USB drive with the OS image flashed on to it and your device will boot.  
+
+If you have an older Raspberry Pi, you will need to update the firmware:
+
+1. Download and install [Raspberry Pi Imager](https://www.raspberrypi.org/downloads/) from the Raspberry Pi website. 
+
+2. Insert a spare micro SD card into your computer. Note that this card will be erased.
+
+3. Launch Raspberry Pi Imager and under Operating System scroll down to Misc Utility Images and left click to open the next menu. 
+
+4. Select Bootloader and then Select USB Boot. This will return you to the main menu. 
+
+5. Under Storage click on the button and select the micro SD card. Double check that you have the right drive before proceeding. 
+
+6. Click on Write to download and write a configuration image to the micro SD card. When done remove the card from your computer. 
+
+7. Insert the micro SD card into your Raspberry Pi 4 and power on. The green activity light will blink a steady pattern once the update has been completed. If you have an HDMI monitor attached, the screen will go green once the update is complete. Allow 10 seconds or more for the update to complete, do not remove the micro SD card until the update is complete.
+
+8. Power off the Raspberry Pi and remove the micro SD card. 
+
+9. Check your USB drive with the OS on it is connected and then boot your device. 
+
+Enjoy!
 
 ## Contributing
 
